@@ -1,4 +1,6 @@
-Elm-Package for human-friendly sorting of lists.
+**NaturalOrdering** is an Elm-package for [human-friendly sorting](https://en.wikipedia.org/wiki/Natural_sort_order) of lists.
+
+[![Build Status](https://travis-ci.org/reiner-dolp/elm-natural-ordering.svg?branch=master)](https://travis-ci.org/reiner-dolp/elm-natural-ordering)
 
 ```elm
 import Html exposing (div, h3, li, text, ul)
