@@ -15,4 +15,4 @@ install:
 
 script:
   - elm-format --validate src
-  - elm-make --warn --output=/dev/null --yes
+  - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 elm-make --warn --output=/dev/null --yes
