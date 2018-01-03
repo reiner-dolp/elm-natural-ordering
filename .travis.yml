@@ -1,0 +1,7 @@
+install:
+  - npm install -g elm@0.18.0 elm-format@exp
+
+script:
+  - elm-format --validate src tests examples readme-example
+  - cd examples
+  - elm-make --output=/dev/null --yes

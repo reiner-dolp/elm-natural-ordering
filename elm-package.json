@@ -1,0 +1,16 @@
+{
+    "version": "1.0.0",
+    "summary": "Natural ordering, human-friendly sorting",
+    "repository": "https://github.com/reiner-dolp/elm-natural-ordering.git",
+    "license": "BSD-3-Clause",
+    "source-directories": [
+        "src"
+    ],
+    "exposed-modules": [
+        "NaturalOrdering"
+    ],
+    "dependencies": {
+        "elm-lang/core": "5.0.0 <= v < 6.0.0"
+    },
+    "elm-version": "0.18.0 <= v < 0.19.0"
+}
