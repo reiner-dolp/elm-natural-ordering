@@ -19,7 +19,7 @@ let
 	List.sort data
 
     naturalSort =
-	sort data
+	NaturalOrdering.sort data
 in
 div []
     [ h3 [] [ text "Default Sort" ]
@@ -46,3 +46,5 @@ The snippet above will output
 * 4-banana
 * 12-apple
 ```
+
+[Run this example in your browser](https://ellie-app.com/5Kk2tFkwqa1/0).
