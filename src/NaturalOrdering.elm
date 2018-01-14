@@ -152,7 +152,6 @@ customSortBy : Options -> (a -> String) -> List a -> List a
 customSortBy opts selector list =
     list
         |> List.map (toChunked selector)
-        |> Debug.log "chunked"
         |> List.sortWith (sortChunked opts)
         |> List.map Tuple.first
 
@@ -181,22 +180,21 @@ sortChunked : Options -> Chunked a -> Chunked a -> Order
 sortChunked opts ( _, astr ) ( _, bstr ) =
     List.map2
         (\a b ->
-            case Debug.log "in" ( a, b ) of
+            case ( a, b ) of
                 ( Num _ a, Num _ b ) ->
-                    Debug.log "out" <| orderFromSign (a - b)
+                    orderFromSign (a - b)
 
                 ( Str a, Num b _ ) ->
-                    Debug.log "out" <| orderFromBool (not opts.lettersBeforeNumbers)
+                    orderFromBool (not opts.lettersBeforeNumbers)
 
                 ( Num a _, Str b ) ->
-                    Debug.log "out" <| orderFromBool opts.lettersBeforeNumbers
+                    orderFromBool opts.lettersBeforeNumbers
 
                 ( Str a, Str b ) ->
-                    Debug.log "out" <|
-                        if opts.caseInsensitive then
-                            orderFromBool (String.toLower a > String.toLower b)
-                        else
-                            orderFromBool (a > b)
+                    if opts.caseInsensitive then
+                        orderFromBool (String.toLower a > String.toLower b)
+                    else
+                        orderFromBool (a > b)
         )
         astr
         bstr
