@@ -15,4 +15,12 @@ install:
 
 script:
   - elm-format --validate src
+  - |
+    ALLOWED=80 MAX=0 IFS=
+    while read -r line; do
+        if [ ${#line} -gt $MAX ]; then MAX=${#line}; fi
+    done < "$1"
+    if [ $MAX -gt $ALLOWED ]; then
+      printf "Maximal line length should be $ALLOWED. Actual: $MAX\n"
+    fi
   - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 elm-make --warn --output=/dev/null --yes
