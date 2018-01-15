@@ -103,12 +103,12 @@ defaultOptions =
 {-| Alias for `defaultOptions` that can be directly imported without collision,
 which is convenient if you want to use the update record syntax.
 
-        -- this does not work in Elm 0.18
-        -- mySettings = { NaturalOrdering.defaultOptions | caseInsensitive = True }
+     -- this does not work in Elm 0.18
+     -- mySettings = { NaturalOrdering.defaultOptions | caseInsensitive = True }
 
-        -- instead
-        mySettings =
-            { defaultNaturalOrderingOptions | caseInsensitive = True }
+     -- instead
+     mySettings =
+         { defaultNaturalOrderingOptions | caseInsensitive = True }
 
 -}
 defaultNaturalOrderingOptions : Options

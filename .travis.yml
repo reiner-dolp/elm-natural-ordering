@@ -26,10 +26,11 @@ script:
   # cases
   - |
     FILE="./src/NaturalOrdering.elm"
-    ALLOWED=80 MAX=0 LINENUM=0 IFS=
+    ALLOWED=80 MAX=0 LINENUM=0 DENY_AFTER=3 IFS=
     
     while read -r line; do
        LINENUM=$(( $LINENUM + 1 ))
+       if [ $DENY_AFTER -lt $LINENUM ]; then continue; fi
        if [ ${#line} -gt $MAX ]; then MAX=${#line}; fi
        if [ ${#line} -gt $ALLOWED ]; then
           printf "[FILE $FILE; LINE $LINENUM] Maximal line length should be $ALLOWED. Actual: ${#line}\n"
