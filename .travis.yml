@@ -2,7 +2,12 @@ cache:
   directories:
     - sysconfcpus
 install:
-  - | # https://github.com/elm-lang/elm-compiler/issues/1473#issuecomment-245704142
+  # The elm compiler incorrectly detects the number of available cores
+  # and takes minutes instead of milliseconds to compile the code.
+  #
+  # Fix sourced from:
+  # https://github.com/elm-lang/elm-compiler/issues/1473#issuecomment-245704142
+  - |
     if [ ! -d sysconfcpus/bin ];
     then
       git clone https://github.com/obmarg/libsysconfcpus.git; 
@@ -11,16 +16,31 @@ install:
       make && make install;
       cd ..;
     fi
-  - npm install -g elm@0.18.0 elm-format@exp
+  - npm install -g elm@0.18.0 elm-test@0.18.12 elm-format@exp
 
 script:
+  # Check if the autoformatter was applied
   - elm-format --validate src
+  # The autoformatter allows you to write arbitrarily long lines
+  # if you do not add a linebreak to the statement, catch these
+  # cases
   - |
-    ALLOWED=80 MAX=0 IFS=
+    FILE="./src/NaturalOrdering.elm"
+    ALLOWED=80 MAX=0 LINENUM=0 IFS=
+    
     while read -r line; do
-        if [ ${#line} -gt $MAX ]; then MAX=${#line}; fi
-    done < cat "./src/NaturalOrdering.elm"
+       LINENUM=$(( $LINENUM + 1 ))
+       if [ ${#line} -gt $MAX ]; then MAX=${#line}; fi
+       if [ ${#line} -gt $ALLOWED ]; then
+          printf "[FILE $FILE; LINE $LINENUM] Maximal line length should be $ALLOWED. Actual: ${#line}\n"
+       fi
+    done < "$FILE"
+    
     if [ $MAX -gt $ALLOWED ]; then
-      printf "Maximal line length should be $ALLOWED. Actual: $MAX\n"
+       printf "===\n"
+       printf "Code rejected because lines are longer than allowed\n"
     fi
+  # Check if the program compiles
   - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 elm-make --warn --output=/dev/null --yes
+  # Execute unit and fuzz tests
+  - elm-test
