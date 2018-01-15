@@ -1,5 +1,5 @@
 {
-    "version": "1.0.1",
+    "version": "1.0.2",
     "summary": "Natural ordering, human-friendly sorting",
     "repository": "https://github.com/reiner-dolp/elm-natural-ordering.git",
     "license": "BSD-3-Clause",
