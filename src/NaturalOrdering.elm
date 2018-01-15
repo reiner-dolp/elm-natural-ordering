@@ -185,20 +185,20 @@ sortChunked opts ( _, astr ) ( _, bstr ) =
                     orderFromSign (a - b)
 
                 ( Str a, Num b _ ) ->
-                    orderFromBool (not opts.lettersBeforeNumbers)
+                    orderFromBool opts.lettersBeforeNumbers
 
                 ( Num a _, Str b ) ->
-                    orderFromBool opts.lettersBeforeNumbers
+                    orderFromBool (not opts.lettersBeforeNumbers)
 
                 ( Str a, Str b ) ->
                     if opts.caseInsensitive then
-                        orderFromBool (String.toLower a > String.toLower b)
+                        orderStr (String.toLower a) (String.toLower b)
                     else
-                        orderFromBool (a > b)
+                        orderStr a b
         )
         astr
         bstr
-        |> List.foldr
+        |> List.foldl
             (\curr res ->
                 case ( curr, res ) of
                     ( _, Just _ ) ->
@@ -227,6 +227,16 @@ orderFromSign a =
 orderFromBool : Bool -> Order
 orderFromBool a =
     if a then
+        LT
+    else
+        GT
+
+
+orderStr : String -> String -> Order
+orderStr a b =
+    if a == b then
+        EQ
+    else if a < b then
         LT
     else
         GT
