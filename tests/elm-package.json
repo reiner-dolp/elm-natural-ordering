@@ -4,7 +4,7 @@
     "repository": "https://github.com/reiner-dolp/elm-natural-ordering.git",
     "license": "BSD-3-Clause",
     "source-directories": [
-        "..\\src",
+        "../src",
         "."
     ],
     "exposed-modules": [],
