@@ -1,6 +1,10 @@
 **NaturalOrdering** is an Elm-package for [human-friendly sorting](https://en.wikipedia.org/wiki/Natural_sort_order) of lists.
 
 [![Build Status](https://travis-ci.org/reiner-dolp/elm-natural-ordering.svg?branch=master)](https://travis-ci.org/reiner-dolp/elm-natural-ordering)
+![Latest version of the package](https://reiner-dolp.github.io/elm-badges/reiner-dolp/elm-natural-ordering/version.svg)
+![Status of direct dependencies](https://reiner-dolp.github.io/elm-badges/reiner-dolp/elm-natural-ordering/dependencies.svg)
+![Latest Elm version supported](https://reiner-dolp.github.io/elm-badges/reiner-dolp/elm-natural-ordering/elm-version.svg)
+![License of the package](https://reiner-dolp.github.io/elm-badges/reiner-dolp/elm-natural-ordering/license.svg)
 
 ```elm
 import Html exposing (div, h3, li, text, ul)
